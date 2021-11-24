@@ -1,0 +1,24 @@
+name: "Packages"
+
+on:
+  pull_request:
+    paths:
+      - "packages/**"
+  push:
+    branches:
+      - main
+    paths:
+      - "packages/**"
+
+jobs:
+  build-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          nix shell nixpkgs#jq -c	nix flake show --json | jq -r '.packages."x86_64-linux" | keys | .[]' | xargs -I{} nix build -L .#{}
