@@ -8,15 +8,17 @@ installing full-featured Monero nodes with an emphasis on ease of use.'';
   };
 
   outputs = { self, nixpkgs, utils }:
-    utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs {
-        inherit system;
-        overlay = ./overlay.nix;
-      };
-      in
-      {
-        packages = import ./packages { inherit pkgs; };
-        nixosModules = import ./modules { inherit pkgs; };
-      });
+    utils.lib.eachDefaultSystem
+      (system:
+        let pkgs = import nixpkgs {
+          inherit system;
+          overlay = ./overlay.nix;
+        };
+        in
+        {
+          packages = import ./packages { inherit pkgs; };
+        }) // {
+      overlay = import ./overlay.nix;
+    };
 }
 
