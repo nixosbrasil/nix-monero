@@ -1,10 +1,9 @@
 {
-  description = ''A collection of Nix packages and NixOS modules for easily 
+  description = ''A collection of Nix packages and NixOS modules for easily
 installing full-featured Monero nodes with an emphasis on ease of use.'';
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, ... }@inputs:
@@ -14,7 +13,7 @@ installing full-featured Monero nodes with an emphasis on ease of use.'';
           inherit system;
         };
 
-      mkHost = { system, host }:
+      mkSystem = { system, host }:
         let
           pkgs = mkPkgs { inherit system; };
         in
@@ -26,13 +25,13 @@ installing full-featured Monero nodes with an emphasis on ease of use.'';
           };
 
           modules = [
-            (./nixosConfigurations + "/${host}.nix")
+            (./nixosConfigurations + "/${host}")
           ];
         };
     in
     {
       nixosConfigurations = {
-        liveusb = mkHost {
+        liveusb = mkSystem {
           system = "x86_64-linux";
           host = "liveusb";
         };
