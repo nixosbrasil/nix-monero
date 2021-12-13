@@ -1,0 +1,28 @@
+{
+  "autosave": true,
+  "cpu": true,
+  "opencl": false,
+  "cuda": false,
+  "randomx": {
+    "1gb-pages": true
+  },
+  "pools": [
+    {
+      "algo": null,
+      "coin": null,
+      "url": "mine.monerod.org:4444",
+      "user": "YOUR_WALLET_ADDRESS",
+      "pass": "YOUR_RIG_NAME",
+      "rig-id": null,
+      "nicehash": false,
+      "keepalive": true,
+      "enabled": true,
+      "tls": true,
+      "tls-fingerprint": null,
+      "daemon": false,
+      "socks5": null,
+      "self-select": null,
+      "submit-to-origin": false
+    }
+  ]
+}
